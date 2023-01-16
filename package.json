@@ -11,7 +11,13 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "prettier": "prettier --write .",
     "prepare": "husky install",
-    "commit": "cz"
+    "commit:comment": "引导设置规范化的提交信息",
+    "commit": "git-cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
   },
   "dependencies": {
     "pinia": "^2.0.28",
