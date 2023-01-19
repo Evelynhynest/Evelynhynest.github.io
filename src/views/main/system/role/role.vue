@@ -1,6 +1,6 @@
 <template>
-  <div class="app">
-    <router-view></router-view>
+  <div class="role">
+    <h2>role</h2>
   </div>
 </template>
 
@@ -8,15 +8,11 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
+  name: 'role',
   setup() {
     return {}
   }
 })
 </script>
 
-<style scoped lang="less">
-.app {
-  width: 100%;
-  height: 100%;
-}
-</style>
+<style scoped></style>
