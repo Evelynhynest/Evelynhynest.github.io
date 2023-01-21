@@ -1,80 +1,58 @@
 <template>
   <div class="user">
-    <page-search :searchFormConfig="searchFormConfig" />
-    <div class="user-content">
-      <yn-table :listData="userList" :propList="propList">
-        <template #status="{ row }">
-          <el-button>{{ row.enable ? '启用' : '禁用' }}</el-button>
-        </template>
-        <template #createAt="{ row }">
-          <strong>{{ row.createAt }}</strong>
-        </template>
-        <template #updateAt="{ row }">
-          <i>{{ row.updateAt }}</i>
-        </template>
-      </yn-table>
-    </div>
+    <page-search
+      :searchFormConfig="searchFormConfig"
+      @resetBtnClick="handleResetClick"
+      @queryBtnClick="handleQueryClick"
+    />
+    <page-content
+      ref="pageContentRef"
+      :contentTabelConfig="contentTabelConfig"
+      pageName="users"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useSystemStore } from '@/stores/main/system/system'
+import { defineComponent } from 'vue'
 
-import pageSearch from '@/components/page-search'
-import YnTable from '@/base-ui/table'
+import PageSearch from '@/components/page-search'
+import PageContent from '@/components/page-content'
 
 import { searchFormConfig } from './config/search.config'
+import { contentTabelConfig } from './config/content.config'
+
+import { usePageSearch } from '@/hooks/usePageSearch'
 
 export default defineComponent({
   name: 'user',
   components: {
-    pageSearch,
-    YnTable
+    PageSearch,
+    PageContent
   },
   setup() {
-    const systemStore = useSystemStore()
-    systemStore.getPageListAction({
-      pageUrl: '/users/list',
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    })
-    const userList = computed(() => systemStore.userList)
-    const userCount = computed(() => systemStore.userCount)
+    /* const pageContentRef = ref<InstanceType<typeof PageContent>>()
+    const handleResetClick = () => {
+      pageContentRef.value?.getPageData()
+    }
+    const handleQueryClick = (queryInfo: any) => {
+      pageContentRef.value?.getPageData(queryInfo)
+    } */
 
-    const propList = [
-      { prop: 'name', label: '用户名', minWidth: '180' },
-      { prop: 'realname', label: '真实姓名', minWidth: '180' },
-      { prop: 'enable', label: '状态', minWidth: '180', slotName: 'status' },
-      { prop: 'cellphone', label: '电话', minWidth: '180' },
-      {
-        prop: 'createAt',
-        label: '创建时间',
-        minWidth: '250',
-        slotName: 'createAt'
-      },
-      {
-        prop: 'updateAt',
-        label: '更新时间',
-        minWidth: '250',
-        slotName: 'updateAt'
-      }
-    ]
+    // 用数组类型检测有问题，但对象不会出问题
+    // const [pageContentRef, handleResetClick, handleQueryClick] = usePageSearch()
+    const { pageContentRef, handleResetClick, handleQueryClick } =
+      usePageSearch()
 
     return {
       searchFormConfig,
-      userList,
-      propList
+      contentTabelConfig,
+      pageContentRef,
+      handleQueryClick,
+      handleResetClick
     }
   }
 })
 </script>
 
-<style scoped>
-.user-content {
-  padding: 20px;
-  border-top: 20px solid #f0f2f5;
-}
-</style>
+<style scoped lang="less"></style>

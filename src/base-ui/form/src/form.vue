@@ -99,6 +99,20 @@ export default defineComponent({
     }) */
 
     const formData = ref({ ...props.modelValue })
+    // const formData = computed(() => ({ ...props.modelValue }))
+    // const formData: any = computed({
+    //   get: () => ({ ...props.modelValue }),
+    //   set: (newValue) => console.log(newValue)
+    // })
+
+    /* // 不直接使用 modelValue 对象的引用赋值
+    watch(
+      () => props.modelValue,
+      (newValue) => {
+        formData.value = { ...newValue }
+      }
+    ) */
+
     watch(
       formData,
       (newValue) => {
