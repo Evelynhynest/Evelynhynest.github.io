@@ -12,7 +12,7 @@
         <el-button
           ><el-icon><Refresh /></el-icon>&nbsp;刷新
         </el-button>
-        <el-button type="primary"
+        <el-button type="primary" v-if="isCreate"
           ><el-icon><Plus /></el-icon>&nbsp;创建用户
         </el-button>
       </template>
@@ -31,13 +31,22 @@
       </template>
       <template #handler>
         <div class="handler-btns">
-          <el-link type="primary"
+          <el-link type="primary" v-if="isUpdate"
             ><el-icon><Edit /></el-icon>编辑</el-link
           >
-          <el-link type="danger"
+          <el-link type="danger" v-if="isDelete"
             ><el-icon><Delete /></el-icon>删除</el-link
           >
         </div>
+      </template>
+
+      <!-- 3.跨组件动态插槽 -->
+      <template
+        v-for="propItem in otherPropSlots"
+        :key="propItem.prop"
+        #[propItem.slotName!]="{ row }"
+      >
+        <slot :name="propItem.slotName" :row="row"></slot>
       </template>
     </yn-table>
   </div>
@@ -49,11 +58,13 @@ import { defineComponent, computed, ref, watch } from 'vue'
 import YnTable from '@/base-ui/table'
 
 import { useSystemStore } from '@/stores/main/system/system'
+import { usePermission } from '@/hooks/usePermission'
 
 import type { PropType } from 'vue'
 import type { ITable } from '@/base-ui/table'
 
 export default defineComponent({
+  name: 'page-content',
   components: {
     YnTable
   },
@@ -71,7 +82,13 @@ export default defineComponent({
   setup(props) {
     const systemStore = useSystemStore()
 
-    // 双向绑定pageInfo
+    // 0.获取操作的权限
+    const isCreate = usePermission(props.pageName, 'create')
+    const isUpdate = usePermission(props.pageName, 'update')
+    const isDelete = usePermission(props.pageName, 'delete')
+    const isQuery = usePermission(props.pageName, 'query')
+
+    // 1.双向绑定pageInfo
     const pageInfo = ref({
       pageSize: 10,
       currentPage: 0
@@ -85,16 +102,9 @@ export default defineComponent({
       console.log('selectionChange:', value)
     }
 
-    /* systemStore.getPageListAction({
-      pageUrl: '/users/list',
-      queryInfo: {
-        offset: 0,
-        size: 10
-      }
-    }) */
-
-    // 发送网络请求，封装一个函数方便多次调用
+    // 2.发送网络请求，封装一个函数方便多次调用
     const getPageData = (queryInfo: any = {}) => {
+      if (!isQuery) return
       systemStore.getPageListAction({
         pageName: props.pageName,
         queryInfo: {
@@ -106,16 +116,31 @@ export default defineComponent({
     }
     getPageData()
 
-    // 从store中获取数据
+    // 3.从store中获取数据
     const dataList = computed(() => systemStore.pageListData(props.pageName))
 
     // const userCount = computed(() => systemStore.userCount)
     const dataCount = computed(() => systemStore.pageListCount(props.pageName))
 
+    // 4.筛选出每个配置文件自己独有的动态插槽
+    const otherPropSlots = props.contentTabelConfig.propList.filter((item) => {
+      // 过滤出去没有slotName属性的item
+      if (!item.slotName) return false
+      // 过滤出去固定展示的公共item
+      if (item.slotName === 'createAt') return false
+      if (item.slotName === 'updateAt') return false
+      if (item.slotName === 'handler') return false
+      return true
+    })
+
     return {
       dataList,
       dataCount,
       pageInfo,
+      otherPropSlots,
+      isCreate,
+      isUpdate,
+      isDelete,
       getPageData,
       selectionChange
     }

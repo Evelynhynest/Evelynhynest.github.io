@@ -11,10 +11,11 @@
       </slot>
     </div>
     <el-table
-      :data="listData"
       border
       style="width: 100%"
+      :data="listData"
       @selection-change="handleSelectionChange"
+      v-bind="childrenProps"
     >
       <el-table-column
         v-if="showSelectionColumn"
@@ -30,7 +31,7 @@
         align="center"
       ></el-table-column>
       <template v-for="propItem in propList" :key="propItem.prop">
-        <el-table-column v-bind="propItem" align="center">
+        <el-table-column v-bind="propItem" align="center" show-overflow-tooltip>
           <template #default="{ row }">
             <slot :name="propItem.slotName" :row="row">{{
               propItem.prop && row[propItem.prop]
@@ -39,11 +40,11 @@
         </el-table-column>
       </template>
     </el-table>
-    <div class="table-footer">
+    <div class="table-footer" v-if="showFooter">
       <slot name="footer">
         <el-pagination
-          :current-page="pageInfo.currentPage"
-          :page-size="pageInfo.pageSize"
+          :current-page="page.currentPage"
+          :page-size="page.pageSize"
           :page-sizes="[10, 20, 30]"
           layout="total, sizes, prev, pager, next, jumper"
           :total="listCount"
@@ -86,9 +87,17 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    pageInfo: {
+    page: {
       type: Object,
       default: () => ({ pageSize: 10, currentPage: 0 })
+    },
+    childrenProps: {
+      type: Object,
+      default: () => ({})
+    },
+    showFooter: {
+      type: Boolean,
+      default: true
     }
   },
   emits: ['selectionChange', 'update:page'],
@@ -98,10 +107,10 @@ export default defineComponent({
     }
 
     const handleSizeChange = (pageSize: number) => {
-      emit('update:page', { ...props.pageInfo, pageSize })
+      emit('update:page', { ...props.page, pageSize })
     }
     const handleCurrentChange = (currentPage: number) => {
-      emit('update:page', { ...props.pageInfo, currentPage })
+      emit('update:page', { ...props.page, currentPage })
     }
 
     return {

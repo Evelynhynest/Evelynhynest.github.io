@@ -79,4 +79,27 @@ export function pathMapToBreadcrumb(
   return breadcrumbs
 }
 
+export function mapMenusToPermissions(userMenus: any[]) {
+  const permissions: string[] = []
+  const _recurseGetPermission = (menus: any[]) => {
+    for (const menu of menus) {
+      if (menu.type === 1 || menu.type === 2) {
+        _recurseGetPermission(menu.children ?? [])
+      } else if (menu.type === 3) {
+        permissions.push(menu.permission)
+      }
+      // 下面这种会多出现3个undefined元素
+      // 因为进入else语句的有可能是没有children的1/2级菜单，
+      // 这些菜单是没有permission属性的
+      // if (menu.children) {
+      //   _recurseGetPermission(menu.children)
+      // } else {
+      //   permissions.push(menu.permission)
+      // }
+    }
+  }
+  _recurseGetPermission(userMenus)
+  return permissions
+}
+
 export { firstMenu }

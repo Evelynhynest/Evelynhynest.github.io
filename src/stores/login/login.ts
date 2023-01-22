@@ -9,13 +9,15 @@ import localCache from '@/utils/localCache'
 import router from '@/router'
 import mapMenusToRoutes from '@/utils/map-menus'
 import type { ILoginState } from './types'
+import { mapMenusToPermissions } from '@/utils/map-menus'
 
 export const useLoginStore = defineStore('login', {
   state: (): ILoginState => {
     return {
       token: '',
       userInfo: {},
-      userMenus: []
+      userMenus: [],
+      permissions: []
     }
   },
   getters: {},
@@ -36,6 +38,7 @@ export const useLoginStore = defineStore('login', {
       const userMenusResult = await requestUserMenusById(this.userInfo.role.id)
       this.userMenus = userMenusResult.data
       localCache.setCache('userMenus', this.userMenus)
+      this.mapMenusAction()
 
       // 4.跳转到首页
       router.push('/main')
@@ -43,19 +46,25 @@ export const useLoginStore = defineStore('login', {
     phoneLoginAction(payload: any) {
       console.log('执行phoneLoginAction', payload)
     },
-    setLoginStore() {
-      this.token = localCache.getCache('token') || ''
-      this.userInfo = localCache.getCache('userInfo') || {}
-      this.userMenus = localCache.getCache('userMenus') || []
+    mapMenusAction() {
+      // 1.动态注册路由
       // userMenus => routes
       const routes = mapMenusToRoutes(this.userMenus)
       // routes => router.main.children
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
-      router.push({
-        path: router.currentRoute.value.path
-      })
+
+      // 2.获取所有用户按钮的权限
+      const permissions = mapMenusToPermissions(this.userMenus)
+      // console.log(permissions)
+      this.permissions = permissions
+    },
+    setLoginStore() {
+      this.token = localCache.getCache('token') || ''
+      this.userInfo = localCache.getCache('userInfo') || {}
+      this.userMenus = localCache.getCache('userMenus') || []
+      this.mapMenusAction()
     }
   }
 })

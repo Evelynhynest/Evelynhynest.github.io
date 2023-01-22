@@ -25,6 +25,7 @@ import type { PropType } from 'vue'
 import type { IForm } from '@/base-ui/form'
 
 export default defineComponent({
+  name: 'page-search',
   components: {
     YnForm
   },
@@ -46,14 +47,6 @@ export default defineComponent({
     }
 
     const formData = ref(formOriginData)
-
-    /* const formData = ref({
-      id: '',
-      username: '',
-      password: '',
-      status: '',
-      createTime: ''
-    }) */
 
     // 2.优化二：应该监听用户点击重置的事件，并且实现数据重置
     const handleResetClick = () => {

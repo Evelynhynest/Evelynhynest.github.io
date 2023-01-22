@@ -1,4 +1,4 @@
-const menu = () => import('@/views/main/system/menu/menu-manage.vue')
+const menu = () => import('@/views/main/system/menu-manage/menu-manage.vue')
 export default {
   path: '/main/system/menu',
   name: 'menu',

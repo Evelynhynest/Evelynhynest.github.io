@@ -2,37 +2,27 @@ import { defineStore } from 'pinia'
 import type { ISystemState } from './types'
 import { requestPageListData } from '@/service/main/system/system'
 
-/* const pageUrlMap = {
-  users: '/api/users/list',
-  role: '/api/role/list'
-}
-pageUrl = pageUrlMap[pageName] */
-
 export const useSystemStore = defineStore('system', {
   state: (): ISystemState => {
     return {
       usersList: [],
       usersCount: 0,
       roleList: [],
-      roleCount: 0
+      roleCount: 0,
+      goodsList: [],
+      goodsCount: 0,
+      menuList: []
     }
   },
   getters: {
     pageListData() {
       return (pageName: string) => {
-        /* switch (pageName) {
-          case 'users':
-            return this.userList
-          case 'role':
-            return this.roleList
-        } */
-        // console.log((this as any)[`${pageName}List`])
         return (this as any)[`${pageName}List`]
       }
     },
     pageListCount() {
       return (pageName: string) => {
-        return (this as any)[`${pageName}Count`]
+        return (this as any)[`${pageName}Count`] || 0
       }
     }
   },
@@ -48,6 +38,12 @@ export const useSystemStore = defineStore('system', {
         case 'role':
           pageUrl = '/role/list'
           break
+        case 'goods':
+          pageUrl = '/goods/list'
+          break
+        case 'menu':
+          pageUrl = '/menu/list'
+          break
       }
       // 2.发请求获取数据
       const pageResult = await requestPageListData(pageUrl, payload.queryInfo)
@@ -61,6 +57,13 @@ export const useSystemStore = defineStore('system', {
         case 'role':
           this.roleList = list
           this.roleCount = totalCount
+          break
+        case 'goods':
+          this.goodsList = list
+          this.goodsCount = totalCount
+          break
+        case 'menu':
+          this.menuList = list
           break
       }
     }
