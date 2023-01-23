@@ -30,7 +30,7 @@ app.use(globalRegister)
 app.use(createPinia())
 const loginStore = useLoginStore()
 // 使仓库数据与本地数据同步，根据获取的数据注册动态路由
-loginStore.setLoginStore()
+loginStore.setupStore()
 // 匹配路由，必须在注册动态路由之后
 app.use(router)
 

@@ -8,6 +8,7 @@
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item
+              v-if="!item.isHidden"
               :label="item.label"
               :rules="item.rules"
               :style="itemStyle"
@@ -90,28 +91,7 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    /* const formData = computed({
-      get: () => props.modelValue,
-      set: (newValue) => {
-        console.log('set newValue')
-        emit('update:modelValue', newValue)
-      }
-    }) */
-
     const formData = ref({ ...props.modelValue })
-    // const formData = computed(() => ({ ...props.modelValue }))
-    // const formData: any = computed({
-    //   get: () => ({ ...props.modelValue }),
-    //   set: (newValue) => console.log(newValue)
-    // })
-
-    /* // 不直接使用 modelValue 对象的引用赋值
-    watch(
-      () => props.modelValue,
-      (newValue) => {
-        formData.value = { ...newValue }
-      }
-    ) */
 
     watch(
       formData,
@@ -132,7 +112,6 @@ export default defineComponent({
 
 <style scoped lang="less">
 .yn-form {
-  // padding-top: 22px;
   padding: 22px 60px 0px 0px;
 }
 </style>

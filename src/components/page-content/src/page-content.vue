@@ -12,7 +12,7 @@
         <el-button
           ><el-icon><Refresh /></el-icon>&nbsp;刷新
         </el-button>
-        <el-button type="primary" v-if="isCreate"
+        <el-button type="primary" v-if="isCreate" @click="handleNewClick"
           ><el-icon><Plus /></el-icon>&nbsp;创建用户
         </el-button>
       </template>
@@ -29,14 +29,18 @@
       <template #updateAt="{ row }">
         <span>{{ $filters.formatTime(row.updateAt) }}</span>
       </template>
-      <template #handler>
+      <template #handler="{ row }">
         <div class="handler-btns">
-          <el-link type="primary" v-if="isUpdate"
+          <el-link type="primary" v-if="isUpdate" @click="handleEditClick(row)"
             ><el-icon><Edit /></el-icon>编辑</el-link
           >
-          <el-link type="danger" v-if="isDelete"
-            ><el-icon><Delete /></el-icon>删除</el-link
+          <el-link
+            type="danger"
+            v-if="isDelete"
+            @click="handleDeleteClick(row)"
           >
+            <el-icon><Delete /></el-icon>删除
+          </el-link>
         </div>
       </template>
 
@@ -79,7 +83,8 @@ export default defineComponent({
       required: true
     }
   },
-  setup(props) {
+  emits: ['newBtnClick', 'editBtnClick'],
+  setup(props, { emit }) {
     const systemStore = useSystemStore()
 
     // 0.获取操作的权限
@@ -91,7 +96,7 @@ export default defineComponent({
     // 1.双向绑定pageInfo
     const pageInfo = ref({
       pageSize: 10,
-      currentPage: 0
+      currentPage: 1
     })
     // 监听pageInfo的变化，发送请求获取数据
     watch(pageInfo, () => {
@@ -108,7 +113,7 @@ export default defineComponent({
       systemStore.getPageListAction({
         pageName: props.pageName,
         queryInfo: {
-          offset: pageInfo.value.currentPage * pageInfo.value.pageSize,
+          offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
           size: pageInfo.value.pageSize,
           ...queryInfo
         }
@@ -133,6 +138,22 @@ export default defineComponent({
       return true
     })
 
+    // 5.删除/编辑/新建按钮逻辑
+    const handleDeleteClick = (item: any) => {
+      systemStore.deletePageDataAction({
+        pageName: props.pageName,
+        id: item.id
+      })
+    }
+
+    const handleEditClick = (item: any) => {
+      emit('editBtnClick', item)
+    }
+
+    const handleNewClick = () => {
+      emit('newBtnClick')
+    }
+
     return {
       dataList,
       dataCount,
@@ -142,7 +163,10 @@ export default defineComponent({
       isUpdate,
       isDelete,
       getPageData,
-      selectionChange
+      selectionChange,
+      handleDeleteClick,
+      handleNewClick,
+      handleEditClick
     }
   }
 })

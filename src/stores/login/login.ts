@@ -10,6 +10,7 @@ import router from '@/router'
 import mapMenusToRoutes from '@/utils/map-menus'
 import type { ILoginState } from './types'
 import { mapMenusToPermissions } from '@/utils/map-menus'
+import { requestPageListData } from '@/service/main/system/system'
 
 export const useLoginStore = defineStore('login', {
   state: (): ILoginState => {
@@ -17,7 +18,10 @@ export const useLoginStore = defineStore('login', {
       token: '',
       userInfo: {},
       userMenus: [],
-      permissions: []
+      permissions: [],
+      entireDepartment: [],
+      entireRole: [],
+      entireMenu: []
     }
   },
   getters: {},
@@ -40,6 +44,9 @@ export const useLoginStore = defineStore('login', {
       localCache.setCache('userMenus', this.userMenus)
       this.mapMenusAction()
 
+      // 登陆后通过token获取所有的部门和角色列表备用
+      this.getInitialDataAction()
+
       // 4.跳转到首页
       router.push('/main')
     },
@@ -57,14 +64,32 @@ export const useLoginStore = defineStore('login', {
 
       // 2.获取所有用户按钮的权限
       const permissions = mapMenusToPermissions(this.userMenus)
-      // console.log(permissions)
       this.permissions = permissions
     },
-    setLoginStore() {
+    setupStore() {
       this.token = localCache.getCache('token') || ''
       this.userInfo = localCache.getCache('userInfo') || {}
       this.userMenus = localCache.getCache('userMenus') || []
       this.mapMenusAction()
+      this.token && this.getInitialDataAction()
+    },
+    async getInitialDataAction() {
+      // 1.请求部门和角色数据
+      const departmentResult = await requestPageListData('/department/list', {
+        offset: 0,
+        size: 1000
+      })
+      const { list: departmentList } = departmentResult.data
+      this.entireDepartment = departmentList
+      const roleResult = await requestPageListData('/role/list', {
+        offset: 0,
+        size: 1000
+      })
+      const { list: roleList } = roleResult.data
+      this.entireRole = roleList
+      const menuResult = await requestPageListData('/menu/list', {})
+      const { list: menuList } = menuResult.data
+      this.entireMenu = menuList
     }
   }
 })

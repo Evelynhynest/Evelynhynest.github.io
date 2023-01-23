@@ -88,18 +88,25 @@ export function mapMenusToPermissions(userMenus: any[]) {
       } else if (menu.type === 3) {
         permissions.push(menu.permission)
       }
-      // 下面这种会多出现3个undefined元素
-      // 因为进入else语句的有可能是没有children的1/2级菜单，
-      // 这些菜单是没有permission属性的
-      // if (menu.children) {
-      //   _recurseGetPermission(menu.children)
-      // } else {
-      //   permissions.push(menu.permission)
-      // }
     }
   }
   _recurseGetPermission(userMenus)
   return permissions
+}
+
+export function mapMenusToLeafKeys(menuList: any[]) {
+  const leafKeys: number[] = []
+  const _recurseGetLeafKeys = (menuList: any) => {
+    for (const menu of menuList) {
+      if (menu.children) {
+        _recurseGetLeafKeys(menu.children)
+      } else {
+        leafKeys.push(menu.id)
+      }
+    }
+  }
+  _recurseGetLeafKeys(menuList)
+  return leafKeys
 }
 
 export { firstMenu }
