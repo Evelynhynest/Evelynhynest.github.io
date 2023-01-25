@@ -18,6 +18,8 @@ import userInfo from './user-info.vue'
 import { useRoute } from 'vue-router'
 import { useLoginStore } from '@/stores/login/login'
 import { pathMapToBreadcrumb } from '@/utils/map-menus'
+// 监听按钮点击调用updateSize，动态调整echarts大小
+// import useEchart from '@/base-ui/base-echart/src/hooks/useEchart'
 
 export default defineComponent({
   components: {
