@@ -10,6 +10,7 @@ export function usePageModal(newCb?: callbackFn, editCb?: callbackFn) {
     // pageModalRef.value!.dialogVisible = true
     defaultInfo.value = {}
     if (pageModalRef.value) {
+      pageModalRef.value.modalTitle = `新建${pageModalRef.value.title ?? ''}`
       pageModalRef.value.dialogVisible = true
     }
     newCb && newCb()
@@ -18,6 +19,7 @@ export function usePageModal(newCb?: callbackFn, editCb?: callbackFn) {
     defaultInfo.value = { ...item }
     // pageModalRef.value!.dialogVisible = true
     if (pageModalRef.value) {
+      pageModalRef.value.modalTitle = `编辑${pageModalRef.value.title ?? ''}`
       pageModalRef.value.dialogVisible = true
     }
     editCb && editCb(item)

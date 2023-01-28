@@ -7,7 +7,7 @@
     />
     <page-content
       ref="pageContentRef"
-      :contentTabelConfig="contentTabelConfig"
+      :contentTableConfig="contentTableConfig"
       pageName="users"
       @editBtnClick="handleEditData"
       @newBtnClick="handleNewData"
@@ -32,7 +32,7 @@
 import { defineComponent, computed } from 'vue'
 
 import { searchFormConfig } from './config/search.config'
-import { contentTabelConfig } from './config/content.config'
+import { contentTableConfig } from './config/content.config'
 import { modalFormConfig } from './config/modal.config'
 
 import { usePageSearch } from '@/hooks/usePageSearch'
@@ -45,21 +45,6 @@ export default defineComponent({
   setup() {
     const { pageContentRef, handleResetClick, handleQueryClick } =
       usePageSearch()
-
-    /* const pageModalRef = ref<InstanceType<typeof PageModal>>()
-    const defaultInfo = ref({})
-    const handleEditData = (item: any) => {
-      defaultInfo.value = { ...item }
-      // pageModalRef.value!.formData = { ...item }
-      pageModalRef.value!.title = '编辑用户'
-      pageModalRef.value!.dialogVisible = true
-    }
-    const handleNewData = () => {
-      defaultInfo.value = {}
-      // pageModalRef.value!.formData = {}
-      pageModalRef.value!.title = '创建用户'
-      pageModalRef.value!.dialogVisible = true
-    } */
 
     // pageModal相关的hook逻辑
     const newCallback = () => {
@@ -107,8 +92,7 @@ export default defineComponent({
 
     return {
       searchFormConfig,
-      contentTabelConfig,
-      // modalFormConfig,
+      contentTableConfig,
       modalFormConfigRef,
       pageContentRef,
       pageModalRef,

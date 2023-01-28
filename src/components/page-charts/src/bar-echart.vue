@@ -5,6 +5,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import type { Ref } from 'vue'
 import * as echarts from 'echarts'
 import type { EChartsOption } from 'echarts'
 
@@ -20,64 +22,66 @@ const props = withDefaults(
     title: ''
   }
 )
-const option: EChartsOption = {
-  title: {
-    text: props.title
-  },
-  xAxis: {
-    data: props.xLabels,
-    axisLabel: {
-      inside: true,
-      color: '#fff'
+const option: Ref<EChartsOption> = computed(() => {
+  return {
+    title: {
+      text: props.title
     },
-    axisTick: {
-      show: false
-    },
-    axisLine: {
-      show: false
-    },
-    z: 10
-  },
-  yAxis: {
-    axisLine: {
-      show: false
-    },
-    axisTick: {
-      show: false
-    },
-    axisLabel: {
-      color: '#999'
-    }
-  },
-  dataZoom: [
-    {
-      type: 'inside'
-    }
-  ],
-  series: [
-    {
-      type: 'bar',
-      showBackground: true,
-      itemStyle: {
-        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-          { offset: 0, color: '#83bff6' },
-          { offset: 0.5, color: '#188df0' },
-          { offset: 1, color: '#188df0' }
-        ])
+    xAxis: {
+      data: props.xLabels,
+      axisLabel: {
+        inside: true,
+        color: '#fff'
       },
-      emphasis: {
+      axisTick: {
+        show: false
+      },
+      axisLine: {
+        show: false
+      },
+      z: 10
+    },
+    yAxis: {
+      axisLine: {
+        show: false
+      },
+      axisTick: {
+        show: false
+      },
+      axisLabel: {
+        color: '#999'
+      }
+    },
+    dataZoom: [
+      {
+        type: 'inside'
+      }
+    ],
+    series: [
+      {
+        type: 'bar',
+        showBackground: true,
         itemStyle: {
           color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: '#2378f7' },
-            { offset: 0.7, color: '#2378f7' },
-            { offset: 1, color: '#83bff6' }
+            { offset: 0, color: '#83bff6' },
+            { offset: 0.5, color: '#188df0' },
+            { offset: 1, color: '#188df0' }
           ])
-        }
-      },
-      data: props.barData
-    }
-  ]
-}
+        },
+        emphasis: {
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+              { offset: 0, color: '#2378f7' },
+              { offset: 0.7, color: '#2378f7' },
+              { offset: 1, color: '#83bff6' }
+            ])
+          }
+        },
+        data: props.barData
+      }
+    ]
+  }
+})
 </script>
 
 <style scoped></style>

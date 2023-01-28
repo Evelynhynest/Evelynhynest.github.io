@@ -1,5 +1,5 @@
 import type { ITable } from '@/base-ui/table'
-export const contentTabelConfig: ITable = {
+export const contentTableConfig: ITable = {
   tableTitle: '商品列表',
   propList: [
     { prop: 'name', label: '商品名称', minWidth: '150' },

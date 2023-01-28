@@ -3,7 +3,7 @@
     <page-search :searchFormConfig="searchFormConfig" />
     <page-content
       pageName="role"
-      :contentTabelConfig="contentTabelConfig"
+      :contentTableConfig="contentTableConfig"
       @newBtnClick="handleNewData"
       @editBtnClick="handleEditData"
     />
@@ -34,7 +34,7 @@ import { useLoginStore } from '@/stores/login/login'
 import { mapMenusToLeafKeys } from '@/utils/map-menus'
 
 import { searchFormConfig } from './config/search.config'
-import { contentTabelConfig } from './config/content.config'
+import { contentTableConfig } from './config/content.config'
 import { modalFormConfig } from './config/modal.config'
 
 import { usePageModal } from '@/hooks/usePageModal'
@@ -71,7 +71,7 @@ export default defineComponent({
 
     return {
       searchFormConfig,
-      contentTabelConfig,
+      contentTableConfig,
       modalFormConfig,
       pageModalRef,
       defaultInfo,

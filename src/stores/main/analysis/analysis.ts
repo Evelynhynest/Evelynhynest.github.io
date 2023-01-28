@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { IAnalysisState } from './types'
 import {
+  requestGoodsAmountList,
   requestCategoryGoodsCount,
   requestCategoryGoodsSale,
   requestCategoryGoodsFavor,
@@ -10,6 +11,7 @@ import {
 export const useAnalysisStore = defineStore('analysis', {
   state: (): IAnalysisState => {
     return {
+      goodsAmountList: [],
       categoryGoodsCount: [],
       categoryGoodsSale: [],
       categoryGoodsFavor: [],
@@ -18,6 +20,8 @@ export const useAnalysisStore = defineStore('analysis', {
   },
   actions: {
     async getDashboardDataAction() {
+      const goodsAmountListResult = await requestGoodsAmountList()
+      this.goodsAmountList = goodsAmountListResult.data
       const categoryGoodsCountResult = await requestCategoryGoodsCount()
       this.categoryGoodsCount = categoryGoodsCountResult.data
       const categoryGoodsSaleResult = await requestCategoryGoodsSale()

@@ -43,13 +43,9 @@ export default defineComponent({
     const loginStore = useLoginStore()
 
     const loginAction = (isKeepPassword: boolean) => {
-      // console.log('account开始登录')
       formRef.value?.validate((valid) => {
-        // console.log(valid)
         if (valid) {
-          // console.log('真正执行登录逻辑', isKeepPassword)
           if (isKeepPassword) {
-            // localCache.setCache('account', account)
             localCache.setCache('username', account.username)
             localCache.setCache('password', account.password)
           } else {
@@ -58,7 +54,6 @@ export default defineComponent({
             localCache.deleteCache('token')
             localCache.deleteCache('userInfo')
           }
-          // console.log('发送登录请求...账号登陆成功')
           loginStore.accountLoginAction(account)
         }
       })

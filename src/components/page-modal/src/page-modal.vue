@@ -2,7 +2,7 @@
   <div class="page-modal">
     <el-dialog
       v-model="dialogVisible"
-      :title="title"
+      :title="modalTitle"
       width="30%"
       center
       destroy-on-close
@@ -51,7 +51,8 @@ export default defineComponent({
   },
   setup(props) {
     const formData = ref<any>({})
-    const title = ref('')
+    const title = ref(props.modalFormConfig.title)
+    const modalTitle = ref('')
     const dialogVisible = ref(false)
 
     watch(
@@ -90,6 +91,7 @@ export default defineComponent({
     return {
       formData,
       title,
+      modalTitle,
       dialogVisible,
       handleConfirmClick
     }

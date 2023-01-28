@@ -30,10 +30,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.yn-card {
+  margin-bottom: 20px;
+}
 :deep(.el-card__header) {
-  padding: 10px 0 10px 10px !important;
+  padding: 12px 0 12px 20px !important;
 }
 .el-card__header span {
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
+}
+:deep(.el-card__body) {
+  padding: 20px !important;
+  line-height: 1.5 !important;
+  font-size: 14px !important;
 }
 </style>

@@ -11,7 +11,6 @@ enum LoginAPI {
 export function accountLoginRequest(account: IAccount) {
   return ynRequest.post<IDataType<ILoginResult>>({
     url: LoginAPI.AccountLogin,
-    // data: account
     data: {
       name: account.username,
       password: account.password

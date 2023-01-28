@@ -1,7 +1,7 @@
 <template>
   <div class="page-content">
     <yn-table
-      v-bind="contentTabelConfig"
+      v-bind="contentTableConfig"
       :listData="dataList"
       :listCount="dataCount"
       v-model:page="pageInfo"
@@ -9,11 +9,11 @@
     >
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
-        <el-button
+        <el-button @click="refreshPage"
           ><el-icon><Refresh /></el-icon>&nbsp;刷新
         </el-button>
         <el-button type="primary" v-if="isCreate" @click="handleNewClick"
-          ><el-icon><Plus /></el-icon>&nbsp;创建用户
+          ><el-icon><Plus /></el-icon>&nbsp;新建
         </el-button>
       </template>
 
@@ -73,7 +73,7 @@ export default defineComponent({
     YnTable
   },
   props: {
-    contentTabelConfig: {
+    contentTableConfig: {
       // type: Object,
       type: Object as PropType<ITable>,
       required: true
@@ -128,7 +128,7 @@ export default defineComponent({
     const dataCount = computed(() => systemStore.pageListCount(props.pageName))
 
     // 4.筛选出每个配置文件自己独有的动态插槽
-    const otherPropSlots = props.contentTabelConfig.propList.filter((item) => {
+    const otherPropSlots = props.contentTableConfig.propList.filter((item) => {
       // 过滤出去没有slotName属性的item
       if (!item.slotName) return false
       // 过滤出去固定展示的公共item
@@ -137,6 +137,10 @@ export default defineComponent({
       if (item.slotName === 'handler') return false
       return true
     })
+
+    const refreshPage = () => {
+      getPageData()
+    }
 
     // 5.删除/编辑/新建按钮逻辑
     const handleDeleteClick = (item: any) => {
@@ -163,6 +167,7 @@ export default defineComponent({
       isUpdate,
       isDelete,
       getPageData,
+      refreshPage,
       selectionChange,
       handleDeleteClick,
       handleNewClick,

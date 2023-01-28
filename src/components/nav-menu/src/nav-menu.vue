@@ -10,8 +10,8 @@
       active-text-color="#fff"
       background-color="#001529"
       text-color="#ccc"
-      unique-opened
       :collapse="isCollapse"
+      :collapse-transition="false"
     >
       <template v-for="item in userMenus" :key="item.id">
         <template v-if="item.type === 1">
@@ -124,6 +124,16 @@ export default defineComponent({
   .nav-menu__menu {
     border-right: none;
     // background-color: inherit;
+    &:not(.el-menu--collapse) {
+      // width: 200px;
+      // min-height: 400px;
+      width: 100%;
+      height: calc(100% - 48px);
+    }
+    // .el-menu-vertical:not(.el-menu--collapse) {
+    // width: 100%;
+    // height: calc(100% - 48px);
+    // }
 
     &-sub {
       background-color: #001529 !important;
@@ -131,6 +141,14 @@ export default defineComponent({
         & > * {
           color: #ccc !important;
         }
+      }
+
+      .el-menu--collapse &-title {
+        height: 0;
+        width: 0;
+        overflow: hidden;
+        visibility: hidden;
+        display: inline-block;
       }
     }
 
@@ -143,6 +161,14 @@ export default defineComponent({
       padding-left: 50px !important;
       background-color: rgba(0, 21, 41, 0.85);
 
+      .el-menu--collapse & {
+        height: 0;
+        width: 0;
+        overflow: hidden;
+        visibility: hidden;
+        display: inline-block;
+      }
+
       &:hover {
         color: #fff;
         background-color: #0a60bd !important;
@@ -154,10 +180,5 @@ export default defineComponent({
       }
     }
   }
-}
-
-.el-menu-vertical:not(.el-menu--collapse) {
-  width: 100%;
-  height: calc(100% - 48px);
 }
 </style>

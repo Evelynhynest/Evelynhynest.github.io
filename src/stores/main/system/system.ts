@@ -16,7 +16,13 @@ export const useSystemStore = defineStore('system', {
       roleCount: 0,
       goodsList: [],
       goodsCount: 0,
-      menuList: []
+      menuList: [],
+      departmentCount: 0,
+      departmentList: [],
+      categoryCount: 0,
+      categoryList: [],
+      storyList: [],
+      storyCount: 0
     }
   },
   getters: {
@@ -49,6 +55,15 @@ export const useSystemStore = defineStore('system', {
         case 'menu':
           pageUrl = '/menu/list'
           break
+        case 'department':
+          pageUrl = '/department/list'
+          break
+        case 'category':
+          pageUrl = '/category/list'
+          break
+        case 'story':
+          pageUrl = '/story/list'
+          break
       }
       // 2.发请求获取数据
       const pageResult = await requestPageListData(pageUrl, payload.queryInfo)
@@ -70,6 +85,18 @@ export const useSystemStore = defineStore('system', {
           break
         case 'menu':
           this.menuList = list
+          break
+        case 'department':
+          this.departmentList = list
+          this.departmentCount = totalCount
+          break
+        case 'category':
+          this.categoryList = list
+          this.categoryCount = totalCount
+          break
+        case 'story':
+          this.storyList = list
+          this.storyCount = totalCount
           break
       }
     },

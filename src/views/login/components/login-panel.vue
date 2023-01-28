@@ -56,8 +56,6 @@ export default defineComponent({
     const currentTab = ref('account')
 
     const handlerLoginClick = () => {
-      // console.log('正在登录', loginAccountRef.value)
-      // console.log('currentTab:', currentTab.value)
       if (currentTab.value === 'account') {
         loginAccountRef.value?.loginAction(isKeepPassword.value)
       } else if (currentTab.value === 'phone') {

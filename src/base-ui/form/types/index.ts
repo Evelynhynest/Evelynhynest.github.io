@@ -23,6 +23,7 @@ interface IColLayout {
 }
 
 export interface IForm {
+  title?: string
   formItems: IFormItem[]
   labelWidth?: string
   itemStyle?: any

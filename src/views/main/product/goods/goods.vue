@@ -1,5 +1,10 @@
 <template>
-  <page-content :contentTabelConfig="contentTabelConfig" pageName="goods">
+  <page-content
+    :contentTableConfig="contentTableConfig"
+    pageName="goods"
+    @editBtnClick="handleEditData"
+    @newBtnClick="handleNewData"
+  >
     <template #oldPrice="{ row }">
       <span>￥{{ row.oldPrice }}</span>
     </template>
@@ -22,19 +27,23 @@
       }}</el-button>
     </template>
   </page-content>
+  <page-modal
+    :modalFormConfig="modalFormConfig"
+    title="新建商品"
+    ref="pageModalRef"
+    :defaultInfo="defaultInfo"
+    pageName="users"
+  ></page-modal>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { contentTabelConfig } from './config/content.config'
+<script lang="ts" setup>
+import { contentTableConfig } from './config/content.config'
+import { modalFormConfig } from './config/modal.config'
 
-export default defineComponent({
-  setup() {
-    return {
-      contentTabelConfig
-    }
-  }
-})
+import { usePageModal } from '@/hooks/usePageModal'
+
+const { pageModalRef, defaultInfo, handleEditData, handleNewData } =
+  usePageModal()
 </script>
 
 <style scoped></style>

@@ -3,13 +3,13 @@ export const accountRules = {
     { required: true, message: '用户名不能为空', trigger: 'blur' },
     {
       pattern: /^[a-z0-9]{5,10}$/,
-      message: '用户名必须为5-10个字母或数字',
+      message: '用户名必须为3-10个字母或数字',
       trigger: 'change'
     }
   ],
   password: [
     { required: true, message: '密码不能为空', trigger: 'blur' },
-    { min: 6, max: 12, message: '长度应为5-8个字符', trigger: 'change' }
+    { min: 6, max: 8, message: '长度应为6-8个字符', trigger: 'change' }
   ]
 }
 

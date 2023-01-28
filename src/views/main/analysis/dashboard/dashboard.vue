@@ -1,6 +1,16 @@
 <template>
   <div class="dashboard">
     <el-row :gutter="10">
+      <!-- <el-col :span="6">
+        <yn-card title="销量1"></yn-card>
+      </el-col> -->
+      <template v-for="item in topPanelData" :key="item.title">
+        <el-col :md="12" :lg="6" :xl="6">
+          <statistical-panel :panel-data="item" />
+        </el-col>
+      </template>
+    </el-row>
+    <el-row :gutter="10">
       <el-col :span="7">
         <yn-card title="分类商品数量">
           <pie-echart :pieData="categoryGoodsCount" />
@@ -37,11 +47,14 @@ import { defineComponent, computed } from 'vue'
 import { useAnalysisStore } from '@/stores/main/analysis/analysis'
 
 import YnCard from '@/base-ui/card'
-import { PieEchart } from '@/components/page-charts'
-import { RoseEchart } from '@/components/page-charts'
-import { LineEchart } from '@/components/page-charts'
-import { BarEchart } from '@/components/page-charts'
-import { MapEchart } from '@/components/page-charts'
+import {
+  PieEchart,
+  RoseEchart,
+  LineEchart,
+  BarEchart,
+  MapEchart
+} from '@/components/page-charts'
+import StatisticalPanel from '@/components/statistical-panel'
 
 export default defineComponent({
   name: 'dashboard',
@@ -51,11 +64,14 @@ export default defineComponent({
     RoseEchart,
     LineEchart,
     BarEchart,
-    MapEchart
+    MapEchart,
+    StatisticalPanel
   },
   setup() {
     const analysisStore = useAnalysisStore()
     analysisStore.getDashboardDataAction()
+
+    const topPanelData = computed(() => analysisStore.goodsAmountList)
     const categoryGoodsCount = computed(() =>
       analysisStore.categoryGoodsCount.map((item) => {
         return { name: item.name, value: item.goodsCount }
@@ -88,6 +104,7 @@ export default defineComponent({
     })
 
     return {
+      topPanelData,
       categoryGoodsCount,
       categoryGoodsSale,
       categoryGoodsFavor,
@@ -97,8 +114,4 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
-.content-row {
-  margin-top: 20px;
-}
-</style>
+<style scoped></style>
