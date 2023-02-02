@@ -20,7 +20,7 @@ export default class YNRequest {
     this.showLoading = config.showLoading ?? DEFAULT_LOADING
 
     this.instance.interceptors.request.use(
-      this.interceptors?.requestInterceptor,
+      this.interceptors?.requestInterceptor as any,
       this.interceptors?.requestInterceptorCatch
     )
     this.instance.interceptors.response.use(

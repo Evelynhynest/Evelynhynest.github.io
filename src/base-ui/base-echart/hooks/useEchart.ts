@@ -1,8 +1,9 @@
 import * as echarts from 'echarts'
 
 import chinaMapData from '../data/china.json'
+// import type { GeoJSONSourceInput } from 'echarts/types/dist/echarts'
 
-echarts.registerMap('china', chinaMapData)
+echarts.registerMap('china', chinaMapData as any)
 
 export default function (el: HTMLElement) {
   const echartInstance = echarts.init(el)

@@ -58,7 +58,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     StatisticalPanel: typeof import('./components/statistical-panel/src/statistical-panel.vue')['default']
-    Test: typeof import('./components/page-content/src/test.vue')['default']
     UserInfo: typeof import('./components/nav-header/src/user-info.vue')['default']
   }
 }

@@ -11,4 +11,5 @@ interface YNRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
   interceptors?: YNRequestInterceptors<T>
   showLoading?: boolean
 }
+
 export type { YNRequestInterceptors, YNRequestConfig }
