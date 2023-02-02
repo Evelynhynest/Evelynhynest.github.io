@@ -2,8 +2,8 @@
   <div class="overview">
     <yn-card title="关于">
       <div class="about">
-        Vue3Admin 是基于 Vue3、Vuex、VueRouter、Vite、 ElementPlus
-        、TypeScript、Echart5等后台系统解决方案。
+        当前项目是基于 Vue3、Pinia、VueRouter、Vite、 ElementPlus
+        、TypeScript、Echart5 等技术实现的一套较为完备的后台系统解决方案。
       </div>
     </yn-card>
     <yn-card title="技术栈">
@@ -38,11 +38,14 @@
         title="编写组件规范"
         :column="1"
         :table-data="[
-          { name: '组件的文件', description: '统一小写，多个单词使用 - 分割' },
+          {
+            name: '组件的文件',
+            description: '命名统一小写，多个单词使用 - 分割'
+          },
           {
             name: '组件的目录结构',
             description:
-              '例如 button 组件：button/src/index.vue，统一在 button/index.ts 导出'
+              '例如 form 组件：form/src/form.vue，统一在 form/index.ts 导出'
           },
           {
             name: '组件导包顺序',
@@ -50,10 +53,6 @@
               '导vue技术栈的包 , 导第三方的工具函数 , 导本地的组件, 导本地的工具函数'
           },
           { name: '组件的名称', description: '统一大写开头，驼峰命名' },
-          {
-            name: '组件属性顺序',
-            description: 'name, components, props, emits, setup ...'
-          },
           {
             name: 'template标签',
             description: '小写加 - ( 例如：<case-panel/> )'
@@ -69,7 +68,7 @@
           {
             name: '组件的样式',
             description:
-              '作用域：scoped, lang = scss / less  ; 类名：统一小写, 多个单词使用 - 分割'
+              '作用域：scoped, lang = less  ; 类名：统一小写, 多个单词使用 - 分割'
           }
         ]"
       />
@@ -79,7 +78,7 @@
         :column="1"
         :table-data="[
           { name: 'add操作', description: 'git add' },
-          { name: 'commit 操作', description: 'yarn commit ' },
+          { name: 'commit 操作', description: 'npm run commit ' },
           { name: 'pull 操作', description: 'git pull ' },
           { name: 'push 操作', description: 'git push ' }
         ]"

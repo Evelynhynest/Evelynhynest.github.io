@@ -11,7 +11,7 @@ export const technologyStacks = [
 
   {
     title: '构建工具',
-    desp: 'Vite 2.x / Webpack5.x'
+    desp: 'Vite 4.x'
   },
 
   {
@@ -26,7 +26,7 @@ export const technologyStacks = [
 
   {
     title: '状态管理',
-    desp: 'Vuex 4.x'
+    desp: 'Pinia 2.x'
   },
 
   {
@@ -41,17 +41,17 @@ export const technologyStacks = [
 
   {
     title: '富文本',
-    desp: 'WangEditor'
+    desp: 'tinymce'
   },
 
   {
     title: '工具库',
-    desp: ' @vueuse/core + dayjs + countup.js'
+    desp: 'dayjs + countup.js'
   },
 
   {
     title: 'CSS 预编译',
-    desp: 'Sass / Less'
+    desp: 'Less'
   },
 
   {

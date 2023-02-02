@@ -4,7 +4,9 @@
       <template v-for="(item, index) in tableData" :key="index">
         <el-descriptions-item>
           <template #label>{{ item.name }}</template>
-          <el-tag size="small">{{ item.description }}</el-tag>
+          <el-tag size="small" v-if="item.description">{{
+            item.description
+          }}</el-tag>
         </el-descriptions-item>
       </template>
     </el-descriptions>

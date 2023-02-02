@@ -63,6 +63,7 @@ export const useLoginStore = defineStore('login', {
       })
 
       // 2.获取所有用户按钮的权限
+      console.log(this.userMenus)
       const permissions = mapMenusToPermissions(this.userMenus)
       this.permissions = permissions
     },

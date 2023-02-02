@@ -2,7 +2,7 @@ export const accountRules = {
   username: [
     { required: true, message: '用户名不能为空', trigger: 'blur' },
     {
-      pattern: /^[a-z0-9]{5,10}$/,
+      pattern: /^[a-z0-9]{3,10}$/,
       message: '用户名必须为3-10个字母或数字',
       trigger: 'change'
     }

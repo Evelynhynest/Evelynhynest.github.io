@@ -4,6 +4,7 @@
  * Copyright (c) 2022 Ephox Corporation DBA Tiny Technologies, Inc.
  * Licensed under the Tiny commercial license. See https://www.tiny.cloud/legal/
  */
+// import tinymce from 'tinymce'
 tinymce.addI18n('zh-Hans', {
 "Redo": "重做",
 "Undo": "撤销",

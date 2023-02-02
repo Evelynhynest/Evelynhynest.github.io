@@ -137,16 +137,13 @@ export default defineComponent({
       border-bottom: 3px solid rgb(121, 187, 255);
     }
   }
-  .table-footer {
-    padding-top: 20px;
-    display: flex;
-    justify-content: right;
-    .el-pagination {
-      align-items: right;
-    }
+}
+.table-footer {
+  display: flex;
+  justify-content: center;
+  .el-pagination {
+    margin-top: 25px;
+    align-items: right;
   }
 }
-/* .headerHandler {
-
-} */
 </style>
