@@ -1,7 +1,7 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": ["env.d.ts", "src/**/*.vue", "src/**/*.ts", "src/**/*.tsx"],
-  "exclude": ["node_modules", "@wangeditor/editor"],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "target": "esnext",
     "baseUrl": ".",

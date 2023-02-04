@@ -13,3 +13,4 @@ interface YNRequestConfig<T = AxiosResponse> extends AxiosRequestConfig {
 }
 
 export type { YNRequestInterceptors, YNRequestConfig }
+0

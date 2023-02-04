@@ -4,7 +4,8 @@ if (import.meta.env.MODE === 'development') {
   // BASE_URL = '/api'
   BASE_URL = '/mock'
 } else if (import.meta.env.MODE === 'production') {
-  BASE_URL = '/api'
+  // BASE_URL = '/api'
+  BASE_URL = '/'
 } else {
   BASE_URL = 'https://vue3.org/test'
 }
