@@ -15,6 +15,7 @@ const pathSrc = path.resolve(__dirname, 'src')
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: '/',
   server: {
     proxy: {
       // 带选项写法：http://localhost:5173/api/bar -> http://jsonplaceholder.typicode.com/bar
