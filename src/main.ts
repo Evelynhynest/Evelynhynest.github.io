@@ -7,6 +7,7 @@ import { useLoginStore } from '@/stores/login/login'
 
 import 'normalize.css'
 import 'element-plus/theme-chalk/base.css'
+import 'element-plus/dist/index.css'
 import '@/assets/css/index.less'
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'

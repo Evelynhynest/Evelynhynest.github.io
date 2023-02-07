@@ -34,8 +34,8 @@ import { useLoginStore } from '@/stores/login/login'
 export default defineComponent({
   setup() {
     const account = reactive({
-      username: localCache.getCache('username'),
-      password: localCache.getCache('password')
+      username: localCache.getCache('username') || 'coderwhy',
+      password: localCache.getCache('password') || 123456
     })
 
     const formRef = ref<InstanceType<typeof ElForm>>()

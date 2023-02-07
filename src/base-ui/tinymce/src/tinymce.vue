@@ -55,7 +55,7 @@ const init = {
   fontsize_formats:
     '12px 14px 16px 18px 20px 22px 24px 28px 32px 36px 48px 56px 72px', //字体大小
   height: 500, //高度
-  placeholder: props.value || '请输入内容......',
+  placeholder: props.value ?? '请输入内容......',
   branding: false //隐藏右下角技术支持
 }
 onMounted(() => {
@@ -63,8 +63,15 @@ onMounted(() => {
 })
 const emit = defineEmits(['update:value'])
 watch(myValue, (newValue) => {
-  console.log('myValue in tinymce', myValue.value)
-  myValue.value = newValue || ''
+  // console.log('myValue in tinymce', myValue.value)
   emit('update:value', newValue)
+  // myValue.value = props.value
 })
+watch(
+  () => props.value,
+  (newValue) => {
+    // console.log('newValue', newValue)
+    myValue.value = newValue
+  }
+)
 </script>

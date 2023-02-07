@@ -1,12 +1,14 @@
 <template>
   <div class="user-info">
     <div class="user-info__icon">
-      <el-icon
+      <el-icon @click="gotoStoryList"
         ><ChatLineRound /><span class="user-info__icon-count">3</span></el-icon
       >
     </div>
     <div class="user-info__icon">
-      <el-icon><Bell /><span class="user-info__icon-count">2</span></el-icon>
+      <el-icon @click="openMsg"
+        ><Bell /><span class="user-info__icon-count">2</span></el-icon
+      >
     </div>
     <el-dropdown class="user-info__dropdown">
       <span class="user-info-display">
@@ -24,6 +26,7 @@
 </template>
 
 <script lang="ts" setup>
+import { ElMessage } from 'element-plus'
 import { ref } from 'vue'
 import localCache from '@/utils/localCache'
 import { useRouter } from 'vue-router'
@@ -40,6 +43,12 @@ const handleExitClick = () => {
   localCache.deleteCache('userInfo')
   localCache.deleteCache('userMenus')
   router.push('/main')
+}
+const gotoStoryList = () => {
+  router.push('/main/story/list')
+}
+const openMsg = () => {
+  ElMessage('该功能还在开发中，敬请期待~')
 }
 </script>
 
